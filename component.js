@@ -39,10 +39,12 @@ class HomeWork extends HTMLElement {
   }
 
   async temperature(lat, long) {
-    let temp = await fetch(
+    let temp = fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=a7b92f2c07cd7822ca92d32de27d8905&units=metric`
     );
-    let result = await temp.json();
+    console.log(temp);
+    let dat = await temp;
+    let result = await dat.json();
     return result;
   }
 
@@ -93,7 +95,6 @@ class HomeWork extends HTMLElement {
         this.geotemp.country = geodat[0].data[0].country;
         this.geotemp.region = geodat[0].data[0].region;
         this.geotemp.temp = result.main.temp;
-        this.render();
       }
     }
   }
