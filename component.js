@@ -14,7 +14,7 @@ class HomeWork extends HTMLElement {
 
   attributeChangedCallback(prop, oldVal, newVal) {
     if (prop === "loc") {
-      this.weather();
+      this.render();
     }
   }
 
@@ -42,7 +42,6 @@ class HomeWork extends HTMLElement {
     let temp = fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=a7b92f2c07cd7822ca92d32de27d8905&units=metric`
     );
-    console.log(temp);
     let dat = await temp;
     let result = await dat.json();
     return result;
@@ -60,7 +59,38 @@ class HomeWork extends HTMLElement {
   };
 
   render() {
-    this.shadowRoot.innerHTML = `
+    if (this.loc != 0) {
+      this.shadowRoot.innerHTML = `
+    <link
+      href="bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-1">
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+          </div>
+        <div>
+    <div>
+    `;
+    }
+    this.weather();
+  }
+
+  async weather() {
+    if (this.loc != 0) {
+      let geodat = await this.geocode();
+      if (geodat[1] == 200) {
+        this.coordinates.lat = geodat[0].data[0].latitude;
+        this.coordinates.long = geodat[0].data[0].longitude;
+        let result = await this.temperature(
+          this.coordinates.lat,
+          this.coordinates.long
+        );
+        this.geotemp.country = geodat[0].data[0].country;
+        this.geotemp.region = geodat[0].data[0].region;
+        this.geotemp.temp = result.main.temp;
+        this.shadowRoot.innerHTML = `
     <link
       href="bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
     <div class="container my-5">
@@ -80,21 +110,6 @@ class HomeWork extends HTMLElement {
         <div>
     <div>
     `;
-  }
-
-  async weather() {
-    if (this.loc != 0) {
-      let geodat = await this.geocode();
-      if (geodat[1] == 200) {
-        this.coordinates.lat = geodat[0].data[0].latitude;
-        this.coordinates.long = geodat[0].data[0].longitude;
-        let result = await this.temperature(
-          this.coordinates.lat,
-          this.coordinates.long
-        );
-        this.geotemp.country = geodat[0].data[0].country;
-        this.geotemp.region = geodat[0].data[0].region;
-        this.geotemp.temp = result.main.temp;
       }
     }
   }
