@@ -1,7 +1,5 @@
-@import url("https://fonts.googleapis.com/css?family=Raleway:200,100,400");
 @import url("../node_modules/@fortawesome/fontawesome-free/css/all.css");
 body {
-  font-family: "Raleway", sans-serif;
   height: 100vh;
   background: #333 url("https://image.ibb.co/n5A2HU/showcase.jpg") no-repeat
     center center / cover;
