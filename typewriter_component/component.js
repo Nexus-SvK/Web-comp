@@ -64,6 +64,7 @@ class Type extends HTMLElement {
     .txt{
       font-family: 'Sniglet', cursive;
       font-size: 64px;
+      margin: 0;
     }
 </style>
     <p class="txt">${this.txt}</p>`;
