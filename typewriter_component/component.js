@@ -7,13 +7,29 @@ class Type extends HTMLElement {
     this.onoffx;
     this.type();
   }
+
+  stringToBoolean = function (input) {
+    switch (input.toLowerCase().trim()) {
+      case "true":
+      case "yes":
+      case "1":
+        return true;
+      case "false":
+      case "no":
+      case "0":
+      case null:
+        return false;
+      default:
+        return Boolean(input);
+    }
+  };
   // CTRL + /
   get word() {
     return String(this.getAttribute("word"));
   }
 
   get onoffx() {
-    return Boolean(this.getAttribute("onoffx"));
+    return this.getAttribute("onoffx");
   }
 
   static get observedAttributes() {
@@ -27,10 +43,11 @@ class Type extends HTMLElement {
   }
 
   type() {
+    let desi = this.stringToBoolean(this.onoffx);
     const fullTxt = this.word;
 
     // Check if deleting
-    if (!this.onoffx) {
+    if (!desi) {
       if (this.txt != "") {
         this.txt = fullTxt.substring(0, this.txt.length - 1);
       }
@@ -54,7 +71,7 @@ class Type extends HTMLElement {
     // Initial Type Speed
     let typeSpeed = 300;
 
-    if (!this.onoffx) {
+    if (!desi) {
       typeSpeed /= 2;
     }
     if (!this.txt == "" && this.txt != fullTxt) {

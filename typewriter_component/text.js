@@ -1,11 +1,11 @@
-let val = true;
+let val = false;
 const btn = document.querySelector("#push");
 const type = document.querySelector("#type");
 btn.addEventListener("click", () => {
   val = !val;
   if (val) {
-    type.setAttribute("onoffx", "1");
+    type.setAttribute("onoffx", "true");
   } else {
-    type.setAttribute("onoffx", "");
+    type.setAttribute("onoffx", "false");
   }
 });
