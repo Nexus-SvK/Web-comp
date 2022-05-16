@@ -62,7 +62,7 @@ class HomeWork extends HTMLElement {
     if (this.loc != 0) {
       this.shadowRoot.innerHTML = `
     <link
-      href="bootstrap-5.1.3-dist/css/bootstrap.min.css" rel="stylesheet"/>
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-1">
